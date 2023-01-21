@@ -18,11 +18,20 @@ import "../index.css";
 
 const Login = () => {
   const [signuptoggle, setSignuptoggle] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const googleProvider = new GoogleAuthProvider();
-  const fbProvider = new FacebookAuthProvider();
 
-  const { googleSignIn, user } = useAuth();
+  const { SignIn, googleSignIn, facebookSignIn, githubSignIn, user } =
+    useAuth();
+
+  const signInWithIDPW = async ({ email, password }) => {
+    try {
+      await SignIn(email, password);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const signInWithGoogle = async () => {
     try {
@@ -32,28 +41,20 @@ const Login = () => {
     }
   };
 
-  const signInWithFacebook = () => {
-    signInWithPopup(auth, fbProvider)
-      .then((result) => {
-        const user = result.user;
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = FacebookAuthProvider.credentialFromError(error);
-      });
+  const signInWithFacebook = async () => {
+    try {
+      await facebookSignIn();
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  // const handelSignOut = async () => {
-  //   try {
-  //     await logout()
-  //   } catch(error) {
-  //     console.log(error)
-  //   }
-  // }
+  const signInWithGithub = async () => {
+    try {
+      await githubSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const signInPage = () => {
     setSignuptoggle(true);
@@ -75,9 +76,17 @@ const Login = () => {
         <div className="login">
           <button onClick={signUpPage}>sign up</button>
           <form id="login">
-            <input type="text" placeholder="Email" />
-            <input type="text" placeholder="password" />
-            <button className="sign_in">Log in</button>
+            <input
+              type="text"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit" onClick={signInWithIDPW(email, password)}>Log in</button>
           </form>
           <p>{/* need account? <a href="signup">Sign up</a> */}</p>
         </div>
@@ -94,8 +103,11 @@ const Login = () => {
       <button id="google" className="sign_in" onClick={signInWithGoogle}>
         Sign in with Google
       </button>
-      <button id="facebook" className="sign_in" onClick={signInWithFacebook}>
+      {/* <button id="facebook" className="sign_in" onClick={signInWithFacebook}>
         Sign in with Facebook
+      </button> */}
+      <button id="facebook" className="sign_in" onClick={signInWithGithub}>
+        Sign in with Github
       </button>
       <p>
         need account? <a href="signup">Sign up</a>

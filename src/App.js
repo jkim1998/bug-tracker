@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
@@ -25,8 +25,7 @@ import {
   Signup,
 } from "./pages";
 import "./App.css";
-
-import { AuthContextProvider } from "./contexts/AuthContext";
+import { AuthContextProvider, useAuth } from "./contexts/AuthContext";
 import { useStateContext } from "./contexts/ContextProvider";
 import PrivateRoute from "./contexts/PrivateRoute";
 
@@ -103,29 +102,140 @@ const App = () => {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                
-                  {/* dashboard  */}
-                  <Route path="/" element={<PrivateRoute><Ecommerce /></PrivateRoute>} />
-                  <Route path="/ecommerce" element={<Ecommerce />} />
-                  {/* pages  */}
-                  <Route path="/orders" element={<Orders />} />
-                  <Route path="/employees" element={<Employees />} />
-                  <Route path="/customers" element={<Customers />} />
-                  {/* apps  */}
-                  <Route path="/kanban" element={<Kanban />} />
-                  <Route path="/editor" element={<Editor />} />
-                  <Route path="/calendar" element={<Calendar />} />
-                  <Route path="/color-picker" element={<ColorPicker />} />
-                  {/* charts  */}
-                  <Route path="/line" element={<Line />} />
-                  <Route path="/area" element={<Area />} />
-                  <Route path="/bar" element={<Bar />} />
-                  <Route path="/pie" element={<Pie />} />
-                  <Route path="/financial" element={<Financial />} />
-                  <Route path="/color-mapping" element={<ColorMapping />} />
-                  <Route path="/pyramid" element={<Pyramid />} />
-                  <Route path="/stacked" element={<Stacked />} />
-                
+
+                {/* dashboard  */}
+                <Route
+                  path="/"
+                  element={
+                    <PrivateRoute>
+                      <Ecommerce />
+                    </PrivateRoute>
+                  }
+                />
+                <Route path="/ecommerce" element={<Ecommerce />} />
+                {/* pages  */}
+                <Route
+                  path="/orders"
+                  element={
+                    // <PrivateRoute>
+                      <Orders />
+                    // </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/employees"
+                  element={
+                    // <PrivateRoute>
+                      <Employees />
+                    // </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/customers"
+                  element={
+                    // <PrivateRoute>
+                      <Customers />
+                    // </PrivateRoute>
+                  }
+                />
+                {/* apps  */}
+                <Route
+                  path="/kanban"
+                  element={
+                    <PrivateRoute>
+                      <Kanban />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/editor"
+                  element={
+                    <PrivateRoute>
+                      <Editor />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/calendar"
+                  element={
+                    <PrivateRoute>
+                      <Calendar />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/color-picker"
+                  element={
+                    <PrivateRoute>
+                      <ColorPicker />
+                    </PrivateRoute>
+                  }
+                />
+                {/* charts  */}
+                <Route
+                  path="/line"
+                  element={
+                    <PrivateRoute>
+                      <Line />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/area"
+                  element={
+                    <PrivateRoute>
+                      <Area />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/bar"
+                  element={
+                    <PrivateRoute>
+                      <Bar />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/pie"
+                  element={
+                    <PrivateRoute>
+                      <Pie />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/financial"
+                  element={
+                    <PrivateRoute>
+                      <Financial />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/color-mapping"
+                  element={
+                    <PrivateRoute>
+                      <ColorMapping />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/pyramid"
+                  element={
+                    <PrivateRoute>
+                      <Pyramid />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/stacked"
+                  element={
+                    <PrivateRoute>
+                      <Stacked />
+                    </PrivateRoute>
+                  }
+                />
               </Routes>
             </div>
             <Footer />
