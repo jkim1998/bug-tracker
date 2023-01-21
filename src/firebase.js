@@ -1,14 +1,6 @@
-import firebase from "firebase/compat/app";
 import { initializeApp } from "firebase/app";
-import {
-  signInWithPopup,
-  signInWithRedirect,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  createUserWithEmailAndPassword,
-  getAuth,
-} from "firebase/auth";
-
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAaa3An_ySfT2amZppeTwQSHinmZ2LRy4E",
@@ -20,6 +12,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth();
+export const db = getFirestore(app);
+// const auth = getAuth(app);
 
-export { app, auth };
+// export { app, auth };

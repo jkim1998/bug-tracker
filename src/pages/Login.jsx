@@ -1,45 +1,43 @@
-import React, { useState } from "react";
-import { app, auth } from "../firebase";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import {
   signInWithPopup,
   signInWithRedirect,
   GoogleAuthProvider,
   FacebookAuthProvider,
+  updateProfile,
+  signOut,
+  signInWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
 } from "firebase/auth";
+import { auth } from "../firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 import "../index.css";
 
 const Login = () => {
   const [signuptoggle, setSignuptoggle] = useState(false);
-
   const navigate = useNavigate();
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        navigate("/home");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-      });
+  const googleProvider = new GoogleAuthProvider();
+  const fbProvider = new FacebookAuthProvider();
+
+  const { googleSignIn, user } = useAuth();
+
+  const signInWithGoogle = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const signInWithFacebook = () => {
-    const provider = new FacebookAuthProvider();
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, fbProvider)
       .then((result) => {
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
         const user = result.user;
-        navigate("/home");
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -49,6 +47,14 @@ const Login = () => {
       });
   };
 
+  // const handelSignOut = async () => {
+  //   try {
+  //     await logout()
+  //   } catch(error) {
+  //     console.log(error)
+  //   }
+  // }
+
   const signInPage = () => {
     setSignuptoggle(true);
   };
@@ -56,16 +62,13 @@ const Login = () => {
   const signUpPage = () => {
     setSignuptoggle(false);
   };
-  // function SignOut() {
-  //   return (
-  //     auth.currentUser && (
-  //       <button className="sign_out" onClick={() => auth.signOut()}>
-  //         <p> sign out</p>
-  //       </button>
-  //     )
-  //   );
-  // }
-
+  // useEffect(() => {
+  //   if (user != null) {
+  //     navigate("/");
+  //   } else {
+  //     navigate("login")
+  //   }
+  // }, [user]);
   return (
     <>
       {signuptoggle ? (
@@ -97,7 +100,7 @@ const Login = () => {
       <p>
         need account? <a href="signup">Sign up</a>
       </p>
-      {/* <SignOut /> */}
+      {/* <button onClick={handelSignOut}>sign out</button> */}
     </>
   );
 };
