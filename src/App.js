@@ -11,7 +11,6 @@ import {
   Employees,
   Stacked,
   Pyramid,
-  Customers,
   Kanban,
   Line,
   Area,
@@ -23,6 +22,7 @@ import {
   Editor,
   Login,
   Signup,
+  Test,
 } from "./pages";
 import "./App.css";
 import { AuthContextProvider, useAuth } from "./contexts/AuthContext";
@@ -118,7 +118,7 @@ const App = () => {
                   path="/orders"
                   element={
                     // <PrivateRoute>
-                      <Orders />
+                    <Orders />
                     // </PrivateRoute>
                   }
                 />
@@ -126,18 +126,19 @@ const App = () => {
                   path="/employees"
                   element={
                     // <PrivateRoute>
-                      <Employees />
+                    <Employees />
                     // </PrivateRoute>
                   }
                 />
                 <Route
-                  path="/customers"
+                  path="/test"
                   element={
                     // <PrivateRoute>
-                      <Customers />
+                    <Test />
                     // </PrivateRoute>
                   }
                 />
+
                 {/* apps  */}
                 <Route
                   path="/kanban"

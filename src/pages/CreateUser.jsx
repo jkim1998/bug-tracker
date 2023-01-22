@@ -12,14 +12,18 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-const Customers = () => {
+
+const CreateUser = () => {
   const { user } = useAuth();
 
   const [file, setFile] = useState("");
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-  });
+  const [data, setData] = useState({});
+  const [error, setError] = useState("");
+  // don't need this
+  // const [data, setData] = useState({
+  //   name: "",
+  //   email: "",
+  // });
   const [per, setPerc] = useState(null);
   const navigate = useNavigate();
 
@@ -85,16 +89,27 @@ const Customers = () => {
         ...data,
         timeStamp: serverTimestamp(),
       });
+      setData("");
+      document.getElementById("account_creation").reset();
       // navigate(-1);
+      setError("");
     } catch (err) {
       console.log(err);
+      setError("error");
     }
   };
 
   return (
     <div className="new">
-      <form onSubmit={handleAdd}>
+      {error !== "" && <h2>{error}</h2>}
+      <form onSubmit={handleAdd} id="account_creation">
         <div className="formInput">
+          <input
+            id="title"
+            value={data.title}
+            placeholder="title"
+            onChange={handleInput}
+          />
           <input
             id="name"
             value={data.name}
@@ -122,4 +137,4 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default CreateUser;
