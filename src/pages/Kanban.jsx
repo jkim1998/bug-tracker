@@ -7,6 +7,7 @@ import {
 
 // import { kanbanGrid } from "../data/importData";
 import { kanbanData, kanbanGrid } from "../data/dummy";
+import { ticketData, ticketGrid } from "../data/importData";
 import { Header } from "../components";
 import {
   collection,
@@ -16,6 +17,7 @@ import {
   deleteDoc,
   doc,
   addDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 const Kanban = () => {
@@ -27,8 +29,6 @@ const Kanban = () => {
   const [per, setPerc] = useState(null);
 
   const handleInput = (e) => {
-    // const id = e.target.id;
-    // const value = e.target.value;
     const { id, value } = e.target;
     setData((data) => {
       return { ...data, [id]: value };
@@ -42,11 +42,10 @@ const Kanban = () => {
   const addProject = async (e) => {
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, "tickets"), {
-        data,
-        // timeStamp: serverTimestamp(),
+      await setDoc(doc(db, "tickets", data.Id), {
+        Id: data.Id,
+        Status: data.Status,
       });
-      console.log(data);
       setData("");
       document.getElementById("ticket_add").reset();
       // navigate(-1);
@@ -60,13 +59,12 @@ const Kanban = () => {
   // const q = query(collection(db, "users"), where("Country", "==", "US"));
   const q = query(collection(db, "tickets"));
   useEffect(() => {
-    const getTicket = async () => {
+    const gerProject = async () => {
       let list = [];
       try {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           // console.log(doc.id, " => ", doc.data());
-          console.log(doc.data());
           list.push({ ...doc.data() });
         });
         setData(list);
@@ -74,7 +72,7 @@ const Kanban = () => {
         console.log(err);
       }
     };
-    getTicket();
+    gerProject();
   }, []);
 
   return (
@@ -84,12 +82,12 @@ const Kanban = () => {
         <KanbanComponent
           id="kanban"
           keyField="Status"
-          dataSource={kanbanData}
-          cardSettings={{ contentField: "Summary", headerField: "Id" }}
+          dataSource={data}
+          cardSettings={{ contentField: "summary", headerField: "Id" }}
         >
           <ColumnsDirective>
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {kanbanGrid.map((item, index) => (
+            {ticketGrid.map((item, index) => (
               <ColumnDirective key={index} {...item} />
             ))}
           </ColumnsDirective>
@@ -105,41 +103,47 @@ const Kanban = () => {
           </div>
           <form className="addProject" onSubmit={addProject} id="ticket_add">
             <input
-              id="priority"
+              id="Priority"
               value={data.Priority}
-              placeholder="priority"
+              placeholder="Priority"
               onChange={handleInput}
             />
             <input
-              id="id"
+              id="Id"
               value={data.Id}
               placeholder="ID"
               onChange={handleInput}
             />
             <input
-              id="title"
+              id="Title"
               value={data.Title}
-              placeholder="title"
+              placeholder="Title"
               onChange={handleInput}
             />
             <input
-              id="type"
+              id="Type"
               value={data.Type}
-              placeholder="type"
+              placeholder="Type"
               onChange={handleInput}
             />
             <input
-              id="assignTo"
+              id="AssignTo"
               value={data.AssignTo}
               placeholder="Assign to"
               onChange={handleInput}
             />
             <input
-              id="status"
+              id="Status"
               value={data.Status}
-              placeholder="status"
+              placeholder="Status"
               onChange={handleInput}
             />
+            {/* <select id="status" name="status" size="3">
+              <option value="Open">Open</option>
+              <option value="Testing">Testing</option>
+              <option value="InProcess">In Process</option>
+              <option value="Closed">Closed</option>
+            </select> */}
             <input
               id="summary"
               value={data.Summary}
