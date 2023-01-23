@@ -29,7 +29,7 @@ import { ordersData, contextMenuItems, ordersGrid } from "../data/dummy";
 import { projectData, dataColumn } from "../data/importData";
 import { Header } from "../components";
 
-const Orders = () => {
+const Projects = () => {
   const toolbarOptions = ["Search"];
   const editing = { allowDeleting: true, allowEditing: true };
   const [data, setData] = useState([]);
@@ -37,24 +37,6 @@ const Orders = () => {
   const [err, setError] = useState();
   const [per, setPerc] = useState(null);
   // const q = query(collection(db, "users"), where("Country", "==", "US"));
-  const q = query(collection(db, "projects"));
-  useEffect(() => {
-    const getEmployee = async () => {
-      let list = [];
-      try {
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          // console.log(doc.id, " => ", doc.data());
-          console.log(doc.data());
-          list.push({ ...doc.data() });
-        });
-        setData(list);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getEmployee();
-  }, []);
 
   const handleInput = (e) => {
     // const id = e.target.id;
@@ -74,9 +56,9 @@ const Orders = () => {
     try {
       const docRef = await addDoc(collection(db, "projects"), {
         data,
-        timeStamp: serverTimestamp(),
+        // timeStamp: serverTimestamp(),
       });
-      console.log(data)
+      console.log(data);
       setData("");
       document.getElementById("project_add").reset();
       // navigate(-1);
@@ -86,6 +68,25 @@ const Orders = () => {
       setError("error");
     }
   };
+
+  const q = query(collection(db, "projects"));
+  useEffect(() => {
+    const gerProject = async () => {
+      let list = [];
+      try {
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          // console.log(doc.id, " => ", doc.data());
+          console.log(data);
+          list.push({ ...doc.data() });
+        });
+        setData(list);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    gerProject();
+  }, []);
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -97,14 +98,14 @@ const Orders = () => {
         allowSorting
         allowExcelExport
         allowPdfExport
-        // contextMenuItems={dataColumn}
+        contextMenuItems={dataColumn}
         editSettings={editing}
       >
         <ColumnsDirective>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {dataColumn.map((item, index) => (
+          {/* {dataColumn.map((item, index) => (
             <ColumnDirective key={index} {...item} />
-          ))}
+          ))} */}
         </ColumnsDirective>
         <Inject
           services={[
@@ -159,4 +160,4 @@ const Orders = () => {
 
 const PopUP = () => {};
 
-export default Orders;
+export default Projects;

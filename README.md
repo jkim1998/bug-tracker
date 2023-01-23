@@ -14,7 +14,6 @@
     - page to list all tickets for all projects 
 - calendar
     - project schedule 
-- color picker
 - ability to join on project, needs approval by the owner of project
 - project list from sanity or github 
 - project version (commit) from github 

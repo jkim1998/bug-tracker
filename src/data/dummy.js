@@ -524,15 +524,15 @@ export const links = [
     title: "Pages",
     links: [
       {
-        name: "orders",
+        name: "projects",
         icon: <AiOutlineShoppingCart />,
       },
       {
-        name: "employees",
+        name: "members",
         icon: <IoMdContacts />,
       },
       {
-        name: "test",
+        name: "tickets",
         icon: <IoMdContacts />,
       },
     ],
@@ -3099,10 +3099,10 @@ export const stackedPrimaryYAxis = {
 
 export const kanbanData = [
   {
-    Id: "Task 1",
+    id: "Task 1",
     Title: "Task - 29001",
-    Status: "Open",
-    Summary: "Analyze the new requirements gathered from the customer.",
+    status: "open",
+    summary: "Analyze the new requirements gathered from the customer.",
     Type: "Story",
     Priority: "Low",
     Tags: "Analyze,Customer",
@@ -3113,10 +3113,10 @@ export const kanbanData = [
     ClassName: "e-story, e-low, e-nancy-davloio",
   },
   {
-    Id: "Task 2",
+    id: "Task 2",
     Title: "Task - 29002",
-    Status: "InProgress",
-    Summary: "Improve application performance",
+    status: "InProgress",
+    summary: "Improve application performance",
     Type: "Improvement",
     Priority: "Normal",
     Tags: "Improvement",

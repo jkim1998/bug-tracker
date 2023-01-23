@@ -5,7 +5,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { AiOutlineMenu } from "react-icons/ai";
 
-import { links } from "../data/dummy";
+import { links } from "../data/importData";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {

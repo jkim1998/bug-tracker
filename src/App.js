@@ -5,10 +5,10 @@ import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
 import {
-  Ecommerce,
-  Orders,
+  Main,
+  Projects,
   Calendar,
-  Employees,
+  Members,
   Stacked,
   Pyramid,
   Kanban,
@@ -17,12 +17,10 @@ import {
   Bar,
   Pie,
   Financial,
-  ColorPicker,
   ColorMapping,
-  Editor,
   Login,
   Signup,
-  Test,
+  Tickets,
 } from "./pages";
 import "./App.css";
 import { AuthContextProvider, useAuth } from "./contexts/AuthContext";
@@ -107,34 +105,34 @@ const App = () => {
                 <Route
                   path="/"
                   element={
-                    <PrivateRoute>
-                      <Ecommerce />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Main />
+                    // </PrivateRoute>
                   }
                 />
-                <Route path="/ecommerce" element={<Ecommerce />} />
+                <Route path="/main" element={<Main />} />
                 {/* pages  */}
                 <Route
-                  path="/orders"
+                  path="/projects"
                   element={
                     // <PrivateRoute>
-                    <Orders />
+                    <Projects />
                     // </PrivateRoute>
                   }
                 />
                 <Route
-                  path="/employees"
+                  path="/members"
                   element={
                     // <PrivateRoute>
-                    <Employees />
+                    <Members />
                     // </PrivateRoute>
                   }
                 />
                 <Route
-                  path="/test"
+                  path="/tickets"
                   element={
                     // <PrivateRoute>
-                    <Test />
+                    <Tickets />
                     // </PrivateRoute>
                   }
                 />
@@ -143,98 +141,74 @@ const App = () => {
                 <Route
                   path="/kanban"
                   element={
-                    <PrivateRoute>
-                      <Kanban />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/editor"
-                  element={
-                    <PrivateRoute>
-                      <Editor />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Kanban />
+                    // </PrivateRoute>
                   }
                 />
                 <Route
                   path="/calendar"
                   element={
-                    <PrivateRoute>
-                      <Calendar />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/color-picker"
-                  element={
-                    <PrivateRoute>
-                      <ColorPicker />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Calendar />
+                    // </PrivateRoute>
                   }
                 />
                 {/* charts  */}
                 <Route
                   path="/line"
                   element={
-                    <PrivateRoute>
-                      <Line />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Line />
+                    // </PrivateRoute>
                   }
                 />
                 <Route
                   path="/area"
                   element={
-                    <PrivateRoute>
-                      <Area />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Area />
+                    // </PrivateRoute>
                   }
                 />
                 <Route
                   path="/bar"
                   element={
-                    <PrivateRoute>
-                      <Bar />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Bar />
+                    // </PrivateRoute>
                   }
                 />
                 <Route
                   path="/pie"
                   element={
-                    <PrivateRoute>
-                      <Pie />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Pie />
+                    // </PrivateRoute>
                   }
                 />
                 <Route
                   path="/financial"
                   element={
-                    <PrivateRoute>
-                      <Financial />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Financial />
+                    // </PrivateRoute>
                   }
                 />
                 <Route
                   path="/color-mapping"
                   element={
-                    <PrivateRoute>
-                      <ColorMapping />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/pyramid"
-                  element={
-                    <PrivateRoute>
-                      <Pyramid />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <ColorMapping />
+                    // </PrivateRoute>
                   }
                 />
                 <Route
                   path="/stacked"
                   element={
-                    <PrivateRoute>
-                      <Stacked />
-                    </PrivateRoute>
+                    // <PrivateRoute>
+                    <Stacked />
+                    // </PrivateRoute>
                   }
                 />
               </Routes>

@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./test.css";
-
-import { projectData, dataColumn } from "../data/importData";
-import { userColumns } from "../data/importData";
-import { Header, AddEmployee } from "../components";
-import { chatData } from "../data/dummy";
-import { db } from "../firebase";
+import { Link } from "react-router-dom";
 import {
   GridComponent,
   Inject,
@@ -14,6 +8,12 @@ import {
   Search,
   Page,
 } from "@syncfusion/ej2-react-grids";
+
+import { employeesGrid } from "../data/dummy";
+import { Header, AddEmployee } from "../components";
+import { Popup } from "@syncfusion/ej2-react-popups";
+import { db } from "../firebase";
+import { userColumns } from "../data/importData";
 import {
   collection,
   query,
@@ -23,13 +23,13 @@ import {
   doc,
 } from "firebase/firestore";
 
-const Test = () => {
+const Members = () => {
   const toolbarOptions = ["Search"];
   const editing = { allowDeleting: true, allowEditing: true };
   const [data, setData] = useState([]);
 
   // const q = query(collection(db, "users"), where("Country", "==", "US"));
-  const q = query(collection(db, "projects"));
+  const q = query(collection(db, "users"));
   useEffect(() => {
     const getEmployee = async () => {
       let list = [];
@@ -49,31 +49,7 @@ const Test = () => {
   }, []);
 
   return (
-    <div className="all">
-      {/* <div className="test1">
-        <div className="test4">
-          <div className="project">
-            <div className="project_img"></div>
-            Project1
-          </div>
-          <div className="project">
-            <div className="project_img"></div>
-            Project2
-          </div>
-          <div className="project">
-            <div className="project_img"></div>
-            Project3
-          </div>
-          <div className="project">
-            <div className="project_img"></div>
-            Project4
-          </div>
-          <div className="project">
-            <div className="project_img"></div>
-            Project5
-          </div>
-        </div>
-    </div> */}
+    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Page" title="Employees" />
       <GridComponent
         dataSource={data}
@@ -81,10 +57,12 @@ const Test = () => {
         allowPaging
         allowSorting
         pageSettings={{ pageCount: 5 }}
+        editSettings={editing}
+        toolbar={toolbarOptions}
       >
         <ColumnsDirective>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {dataColumn.map((item, index) => (
+          {userColumns.map((item, index) => (
             <ColumnDirective key={index} {...item} />
           ))}
         </ColumnsDirective>
@@ -94,4 +72,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default Members;
