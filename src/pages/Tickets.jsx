@@ -48,7 +48,7 @@ const Kanban = () => {
   };
 
   const addProject = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     try {
       await setDoc(doc(db, "tickets", data.Id), {
         Id: data.Id,
@@ -59,7 +59,7 @@ const Kanban = () => {
       // navigate(-1);
     } catch (err) {
       console.log("err ticketID: " + ticketID);
-      // togglePopUp();
+      togglePopUp();
     }
   };
   // const q = query(collection(db, "users"), where("Country", "==", "US"));
@@ -93,9 +93,78 @@ const Kanban = () => {
   }, [ticketID]);
 
   return (
-    <>
-      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header category="App" title="Kanban" />
+    <div className="tickets">
+      <div className="container_kanban">
+        {popUp && (
+          <div className="popup">
+            <form className="addProject" onSubmit={addProject} id="ticket_add">
+              <div className="button_container">
+                <button className="close" onClick={() => togglePopUp()}>
+                  X
+                </button>
+              </div>
+              <input
+                id="Id"
+                value={data.Id}
+                placeholder={ticketID}
+                onChange={handleInput}
+                readOnly={false}
+              />
+              <input
+                id="Title"
+                value={data.Title}
+                placeholder="Title"
+                onChange={handleInput}
+              />
+              <input
+                id="Type"
+                value={data.Type}
+                placeholder="Type"
+                onChange={handleInput}
+              />
+              <input
+                id="AssignTo"
+                value={data.AssignTo}
+                placeholder="Assign to"
+                onChange={handleInput}
+              />
+              <input
+                id="Status"
+                value={data.Status}
+                placeholder="Status"
+                onChange={handleInput}
+              />
+              {/* <select id="status" name="status" size="3">
+              <option value="Open">Open</option>
+              <option value="Testing">Testing</option>
+              <option value="InProcess">In Process</option>
+              <option value="Closed">Closed</option>
+            </select> */}
+              <textarea
+                id="summary"
+                value={data.Summary}
+                placeholder="summary"
+                onChange={handleInput}
+              />
+              <select
+                id="Priority"
+                value={data.Priority}
+                placeholder="Priority"
+                onChange={handleInput}
+              >
+                <option value="high">High</option>
+                <option value="mid">Mid</option>
+                <option value="low">Low</option>
+                </select>
+              <button disabled={per !== null && per < 100} type="submit">
+                Send
+              </button>
+            </form>
+          </div>
+        )}
+        <button className="addticket" onClick={() => togglePopUp()}>
+          Add Ticket {ticketID}
+        </button>
         <KanbanComponent
           id="kanban"
           keyField="Status"
@@ -103,108 +172,49 @@ const Kanban = () => {
           cardSettings={{ contentField: "Summary", headerField: "Id" }}
         >
           <ColumnsDirective>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             {ticketGrid.map((item, index) => (
               <ColumnDirective key={index} {...item} />
             ))}
           </ColumnsDirective>
         </KanbanComponent>
       </div>
-      <button onClick={() => togglePopUp()}>Add Ticket {ticketID}</button>
-      {popUp && (
-        <div className="popup">
-          <div className="button_container">
-            <button className="close" onClick={() => togglePopUp()}>
-              X
-            </button>
-          </div>
-          <form className="addProject" onSubmit={addProject} id="ticket_add">
-            <input
-              id="Priority"
-              value={data.Priority}
-              placeholder="Priority"
-              onChange={handleInput}
-            />
-            <input
-              id="Id"
-              value={data.Id}
-              placeholder={ticketID}
-              onChange={handleInput}
-              readOnly={false}
-            />
-            <p>{ticketID}</p>
-            <input
-              id="Title"
-              value={data.Title}
-              placeholder="Title"
-              onChange={handleInput}
-            />
-            <input
-              id="Type"
-              value={data.Type}
-              placeholder="Type"
-              onChange={handleInput}
-            />
-            <input
-              id="AssignTo"
-              value={data.AssignTo}
-              placeholder="Assign to"
-              onChange={handleInput}
-            />
-            <input
-              id="Status"
-              value={data.Status}
-              placeholder="Status"
-              onChange={handleInput}
-            />
-            {/* <select id="status" name="status" size="3">
-              <option value="Open">Open</option>
-              <option value="Testing">Testing</option>
-              <option value="InProcess">In Process</option>
-              <option value="Closed">Closed</option>
-            </select> */}
-            <input
-              id="summary"
-              value={data.Summary}
-              placeholder="summary"
-              onChange={handleInput}
-            />
-            <input
-              id="tag"
-              value={data.Tag}
-              placeholder="tag"
-              onChange={handleInput}
-            />
-            <button disabled={per !== null && per < 100} type="submit">
-              Send
-            </button>
-          </form>
-        </div>
-      )}
-      <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
-        <ChartsHeader category="Pie" title="Project Cost Breakdown" />
-        <div className="w-full">
+
+      <div className="container_chart">
+        <div className="container_pie">
+          <p>By Priority</p>
           <PieChart
             id="pie-chart"
             data={pieChartData}
             legendVisiblity={true}
-            height="160px"
+            height="300px"
+            width="400px"
+            background="transparent"
           />
+        </div>
+        <div className="container_pie">
+          <p>By Type</p>
           <PieChart
             id="pie-chart2"
             data={pieChartData2}
             legendVisiblity={true}
-            height="160px"
+            height="300px"
+            width="400px"
+            background="transparent"
           />
+        </div>
+        <div className="container_pie">
+          <p>By Status</p>
           <PieChart
             id="pie-chart3"
             data={pieChartData3}
             legendVisiblity={true}
-            height="160px"
+            height="300px"
+            width="400px"
+            background="transparent"
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

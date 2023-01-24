@@ -1,25 +1,58 @@
-### plan
-- ~~sanity to add project ~~
-- firebase to add projects
-    - click to expan or redirect to the project page that contains: 
-        - project detail 
-            - link, github 
-        - members
-            - add / remove members
-        - ticket
-            - adjust prioirty 
-            - close (only admin can reopen)
-        - comments 
-- ticketing to submit bug 
-    - page to list all tickets for all projects 
-- calendar
-    - project schedule 
-- ability to join on project, needs approval by the owner of project
-- project list from sanity or github 
-- project version (commit) from github 
-- admin account to manage/edit employee info 
-    - employees cannot edit or can only edit their own
-- charts to reflect projet progress
+## general 
+    - priviate routing 
+    - admin privileges
+    - charts to reflect projet progress
+
+
+## login/sign up
+    - facebook log in not working 
+    - add to users collection for google/github log in 
+    - css 
+
+## main 
+    - dashboard. 
+    - your task | project progress | announcement | message? | schedule (display "nothing coming up" if none)
+    - need design ideas 
+
+## members 
+    -include accounts using google/github log in 
+    - delete/ edit function for admin 
+    - add profile pictures
+    - phone numbers
+    - hiredate as account creation date
+    - employee number 
+        - same as ticket #
+    - click email address to send email
+
+## ticket 
+    -set ID unedditable, read from firebase. 
+    -click ticket to view details 
+        --style
+    -assign to drop menu that contains members list 
+
+## projects 
+    - import from github? (commit history, etc)
+    - firebase 
+        -project title 
+        -thumbnail
+        -description
+        -github link
+        -demo link
+    - click to view details 
+        -details above 
+        -authors 
+        -tickets related to the project
+    - ability to join on project, needs approval by the owner of project
+
+## calendar 
+    - save events to server (it disappears on refresh rn)
+    -
+
+
+## later if have time 
+    - chat between users 
+    -
+
 
 ### urgent/crtical bug
 - private route not working after logged in 
@@ -34,5 +67,4 @@
 - tailwind css
     -sidebar close button
 - user profile pop up click anywhere to close 
-
 

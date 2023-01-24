@@ -149,7 +149,7 @@ const App = () => {
                 />
               </Routes>
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </div>
       </AuthContextProvider>
