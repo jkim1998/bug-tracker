@@ -22,6 +22,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import './SignUp';
 
 const Members = () => {
   const toolbarOptions = ["Search"];

@@ -90,6 +90,7 @@ const Login = () => {
           Sign in with Github
         </button>
         {/* <button onClick={handelSignOut}>sign out</button> */}
+        <a href="/signup">Sign up</a>
       </div>
     </div>
   );

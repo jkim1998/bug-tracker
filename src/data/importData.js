@@ -80,83 +80,66 @@ export const links = [
         icon: <AiOutlineCalendar />,
       },
       {
-        name: "kanban",
-        icon: <BsKanban />,
+        name: "pie",
+        icon: <FiPieChart />,
       },
     ],
   },
   {
-    title: "Charts",
+    title: "Admin",
     links: [
       {
-        name: "line",
-        icon: <AiOutlineStock />,
-      },
-      {
-        name: "area",
-        icon: <AiOutlineAreaChart />,
-      },
-
-      {
-        name: "bar",
-        icon: <AiOutlineBarChart />,
-      },
-      {
-        name: "pie",
+        name: "mange members",
         icon: <FiPieChart />,
-      },
-      {
-        name: "financial",
-        icon: <RiStockLine />,
-      },
-      {
-        name: "color-mapping",
-        icon: <BsBarChart />,
-      },
-      {
-        name: "stacked",
-        icon: <AiOutlineBarChart />,
       },
     ],
   },
 ];
+
+const gridEmployeeProfile = (props) => (
+  <div className="flex items-center gap-2">
+    <img className="rounded-full w-10 h-10" src={avatar} alt="tes" />
+    <p>{props.name}</p>
+  </div>
+);
+
 export const userColumns = [
-  // { field: "id", headerName: "ID", width: 170 },
+  {
+    field: "employee id",
+    headerName: "ID",
+    width: 15,
+  },
+  {
+    headerText: "Employee",
+    field: "name",
+    width: 30,
+    template: gridEmployeeProfile,
+    textAlign: "Center",
+  },
+  // {
+  //   field: "name",
+  //   headerName: "name",
+  //   width: 50,
+  // },
   {
     field: "title",
     headerName: "Title",
-    width: 160,
-    // renderCell: (params) => {
-    //   return (
-    //     <div className={`cellWithStatus ${params.row.status}`}>
-    //       {params.row.status}
-    //     </div>
-    //   );
-    // },
-  },
-  {
-    field: "name",
-    headerName: "name",
-    width: 130,
-    // renderCell: (params) => {
-    //   return (
-    //     <div className="cellWithImg">
-    //       <img className="cellImg" src={params.row.img} alt="avatar" />
-    //       {params.row.username}
-    //     </div>
-    //   );
-    // },
+    width: 30,
   },
   {
     field: "email",
     headerName: "Email",
-    width: 130,
+    width: 50,
   },
-
   {
-    field: "password",
-    headerName: "password",
-    width: 100,
+    field: "Reports to",
+    headerName: "reports to",
+    width: 50,
+  },
+  {
+    field: "hiredate",
+    headerName: "Hire Date",
+    width: 30,
   },
 ];
 
@@ -190,18 +173,11 @@ export const projectData = [
 ];
 
 export const ticketGrid = [
-  { headerText: "To Do", keyField: "Open", allowToggle: true },
+  { headerText: "Open", keyField: "Open", allowToggle: true },
 
   { headerText: "In Progress", keyField: "inProgress", allowToggle: true },
 
-  {
-    headerText: "Testing",
-    keyField: "testing",
-    allowToggle: true,
-    isExpanded: false,
-  },
-
-  { headerText: "Done", keyField: "Closed", allowToggle: true },
+  { headerText: "Closed", keyField: "Closed", allowToggle: true },
 ];
 
 export const ticketData = [
@@ -233,4 +209,21 @@ export const ticketData = [
     Color: "#E64A19",
     ClassName: "e-bug, e-low, e-steven-walker",
   },
+];
+
+export const pieChartData = [
+  { x: "High", y: 33, text: "33%", color: "red", name: "high" },
+  { x: "Low", y: 33, text: "33%", color: "green" },
+  { x: "Standard", y: 33, text: "33%", color: "yellow" },
+];
+
+export const pieChartData2 = [
+  { x: "High", y: 33, text: "33%", color: "red" },
+  { x: "Low", y: 33, text: "33%", color: "green" },
+  { x: "Standard", y: 33, text: "33%", color: "yellow" },
+];
+export const pieChartData3 = [
+  { x: "High", y: 33, text: "33%", color: "red" },
+  { x: "Low", y: 33, text: "33%", color: "green" },
+  { x: "Standard", y: 33, text: "33%", color: "yellow" },
 ];

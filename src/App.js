@@ -9,15 +9,7 @@ import {
   Projects,
   Calendar,
   Members,
-  Stacked,
-  Pyramid,
-  Kanban,
-  Line,
-  Area,
-  Bar,
   Pie,
-  Financial,
-  ColorMapping,
   Login,
   Signup,
   Tickets,
@@ -138,14 +130,7 @@ const App = () => {
                 />
 
                 {/* apps  */}
-                <Route
-                  path="/kanban"
-                  element={
-                    // <PrivateRoute>
-                    <Kanban />
-                    // </PrivateRoute>
-                  }
-                />
+
                 <Route
                   path="/calendar"
                   element={
@@ -154,60 +139,11 @@ const App = () => {
                     // </PrivateRoute>
                   }
                 />
-                {/* charts  */}
-                <Route
-                  path="/line"
-                  element={
-                    // <PrivateRoute>
-                    <Line />
-                    // </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/area"
-                  element={
-                    // <PrivateRoute>
-                    <Area />
-                    // </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/bar"
-                  element={
-                    // <PrivateRoute>
-                    <Bar />
-                    // </PrivateRoute>
-                  }
-                />
                 <Route
                   path="/pie"
                   element={
                     // <PrivateRoute>
                     <Pie />
-                    // </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/financial"
-                  element={
-                    // <PrivateRoute>
-                    <Financial />
-                    // </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/color-mapping"
-                  element={
-                    // <PrivateRoute>
-                    <ColorMapping />
-                    // </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/stacked"
-                  element={
-                    // <PrivateRoute>
-                    <Stacked />
                     // </PrivateRoute>
                   }
                 />

@@ -133,8 +133,9 @@ const SignUp = () => {
           type="submit"
           className="test3"
         >
-          Send
+          Sign up
         </button>
+        <a href="login">log in</a>
       </form>
     </div>
   );

@@ -12,18 +12,42 @@ import {
   onAuthStateChanged,
   GithubAuthProvider,
 } from "firebase/auth";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { db } from "../firebase";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-
-  const SignIn = ({email, password}) => {
+  const [data, setData] = useState([]);
+  const [err, setError] = useState();
+  //   const addAccount = async () => {
+  //   try {
+  //     await setDoc(doc(db, "users", res.user.uid), {
+  //       ...data,
+  //       timeStamp: serverTimestamp(),
+  //     });
+  //     setData("");
+  //     document.getElementById("account_creation").reset();
+  //     // navigate(-1);
+  //     setError("");
+  //   } catch (err) {
+  //     console.log(err);
+  //     setError("error");
+  //   }
+  // };
+  const SignIn = ({ email, password }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
+        // addAccount;
         const user = userCredential.user;
         // ...
       })

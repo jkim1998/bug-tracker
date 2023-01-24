@@ -23,10 +23,16 @@
 
 ### urgent/crtical bug
 - private route not working after logged in 
-
+- ticket 
+    - ticket number needs to be initialized (0)
+    - either non input to hold ticket id + 1 value and display
+        - or  input with readOnly and assign input value (not placeholder)
+        
 ### low-priority 
 - facebook log in not working 
 - log in with ID/PW
 - tailwind css
     -sidebar close button
 - user profile pop up click anywhere to close 
+
+

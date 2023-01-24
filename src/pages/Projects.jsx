@@ -36,11 +36,8 @@ const Projects = () => {
   const [popUp, setPopup] = useState(false);
   const [err, setError] = useState();
   const [per, setPerc] = useState(null);
-  // const q = query(collection(db, "users"), where("Country", "==", "US"));
 
   const handleInput = (e) => {
-    // const id = e.target.id;
-    // const value = e.target.value;
     const { id, value } = e.target;
     setData((data) => {
       return { ...data, [id]: value };
@@ -50,34 +47,30 @@ const Projects = () => {
   const togglePopUp = () => {
     setPopup(!popUp);
   };
-
   const addProject = async (e) => {
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, "projects"), {
-        data,
-        // timeStamp: serverTimestamp(),
+      await setDoc(doc(db, "Projects", data.title), {
+        title: data.title,
+        member: data.member,
+        status: data.status,
       });
-      console.log(data);
-      setData("");
+      console.log("ticketID: " + data.title);
       document.getElementById("project_add").reset();
-      // navigate(-1);
-      setError("");
     } catch (err) {
-      console.log(err);
-      setError("error");
+      console.log("err");
     }
   };
 
-  const q = query(collection(db, "projects"));
+  const q = collection(db, "Projects");
+  const projectlist = query(q);
   useEffect(() => {
-    const gerProject = async () => {
+    const getProject = async () => {
       let list = [];
       try {
-        const querySnapshot = await getDocs(q);
+        const querySnapshot = await getDocs(projectlist);
         querySnapshot.forEach((doc) => {
           // console.log(doc.id, " => ", doc.data());
-          console.log(data);
           list.push({ ...doc.data() });
         });
         setData(list);
@@ -85,7 +78,7 @@ const Projects = () => {
         console.log(err);
       }
     };
-    gerProject();
+    getProject();
   }, []);
 
   return (
@@ -103,9 +96,9 @@ const Projects = () => {
       >
         <ColumnsDirective>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {/* {dataColumn.map((item, index) => (
+          {dataColumn.map((item, index) => (
             <ColumnDirective key={index} {...item} />
-          ))} */}
+          ))}
         </ColumnsDirective>
         <Inject
           services={[

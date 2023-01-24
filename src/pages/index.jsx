@@ -1,15 +1,8 @@
 export { default as Main } from "./Main";
-export { default as Kanban } from "./Kanban";
 export { default as Projects } from "./Projects";
 export { default as Members } from "./Members";
 export { default as Calendar } from "./Calendar";
-export { default as Area } from "./Charts/Area";
-export { default as Bar } from "./Charts/Bar";
-export { default as ColorMapping } from "./Charts/ColorMapping";
-export { default as Financial } from "./Charts/Financial";
-export { default as Line } from "./Charts/Line";
 export { default as Pie } from "./Charts/Pie";
-export { default as Stacked } from "./Charts/Stacked";
 export { default as Login } from "./Login";
 export { default as Signup } from "./SignUp";
 export { default as Tickets } from "./Tickets";

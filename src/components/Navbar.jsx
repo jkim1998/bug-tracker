@@ -7,7 +7,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import avatar from "../data/avatar.jpg";
-import { Cart, Chat, Notification, UserProfile } from ".";
+import { Chat, Notification, UserProfile } from ".";
 import { useAuth } from "../contexts/AuthContext";
 import { useStateContext } from "../contexts/ContextProvider";
 
@@ -75,12 +75,6 @@ const Navbar = () => {
       )}
       <div className="flex">
         <NavButton
-          title="Cart"
-          customFunc={() => handleClick("cart")}
-          color={currentColor}
-          icon={<FiShoppingCart />}
-        />
-        <NavButton
           title="Chat"
           dotColor="#03C9D7"
           customFunc={() => handleClick("chat")}
@@ -114,7 +108,6 @@ const Navbar = () => {
           </div>
         </TooltipComponent>
 
-        {isClicked.cart && <Cart />}
         {isClicked.chat && <Chat />}
         {isClicked.notification && <Notification />}
         {isClicked.userProfile && <UserProfile />}
