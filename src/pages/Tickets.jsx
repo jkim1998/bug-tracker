@@ -41,6 +41,7 @@ const Kanban = () => {
     setData((data) => {
       return { ...data, [id]: value };
     });
+    // console.log(data);
   };
 
   const togglePopUp = () => {
@@ -52,14 +53,23 @@ const Kanban = () => {
     try {
       await setDoc(doc(db, "tickets", data.Id), {
         Id: data.Id,
-        Status: data.Status,
+        Title: data.Title,
+        Type: data.Type,
+        Assign: data.Assign,
+        Status: "Open",
+        Summary: data.Summary,
+        Prioirty: data.Priority,
       });
       console.log("ticketID: " + ticketID);
       document.getElementById("ticket_add").reset();
       // navigate(-1);
-    } catch (err) {
-      console.log("err ticketID: " + ticketID);
       togglePopUp();
+    } catch (err) {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      console.log("err ticketID: " + ticketID);
     }
   };
   // const q = query(collection(db, "users"), where("Country", "==", "US"));
@@ -97,7 +107,7 @@ const Kanban = () => {
       <div className="container_kanban">
         {popUp && (
           <div className="popup">
-            <form className="addProject" onSubmit={addProject} id="ticket_add">
+            <form onSubmit={addProject} id="ticket_add">
               <div className="button_container">
                 <button className="close" onClick={() => togglePopUp()}>
                   X
@@ -105,60 +115,62 @@ const Kanban = () => {
               </div>
               <input
                 id="Id"
-                value={data.Id}
+                value={!data ? "" : data.Id}
+                defaultValue={data.Id}
                 placeholder={ticketID}
                 onChange={handleInput}
                 readOnly={false}
+                required={true}
               />
               <input
                 id="Title"
                 value={data.Title}
                 placeholder="Title"
                 onChange={handleInput}
+                required={true}
               />
               <input
                 id="Type"
                 value={data.Type}
                 placeholder="Type"
                 onChange={handleInput}
+                required={true}
               />
               <input
-                id="AssignTo"
-                value={data.AssignTo}
+                id="Assign"
+                value={data.Assign}
                 placeholder="Assign to"
                 onChange={handleInput}
+                required={true}
               />
-              <input
-                id="Status"
-                value={data.Status}
-                placeholder="Status"
-                onChange={handleInput}
-              />
-              {/* <select id="status" name="status" size="3">
-              <option value="Open">Open</option>
-              <option value="Testing">Testing</option>
-              <option value="InProcess">In Process</option>
-              <option value="Closed">Closed</option>
-            </select> */}
               <textarea
-                id="summary"
+                id="Summary"
                 value={data.Summary}
-                placeholder="summary"
+                placeholder="Summary"
                 onChange={handleInput}
+                required={true}
               />
               <select
                 id="Priority"
                 value={data.Priority}
                 placeholder="Priority"
                 onChange={handleInput}
+                required={true}
+                // defaultValue={{ value: "low" }}
               >
-                <option value="high">High</option>
-                <option value="mid">Mid</option>
+                <option>Prioirty</option>
                 <option value="low">Low</option>
-                </select>
+                <option value="mid">Mid</option>
+                <option value="high">High</option>
+              </select>
               <button disabled={per !== null && per < 100} type="submit">
                 Send
               </button>
+              {err && (
+                <p className="err_msg">
+                  Something went wrong. Please check connection and try again
+                </p>
+              )}
             </form>
           </div>
         )}

@@ -22,14 +22,16 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import './SignUp';
+import "./SignUp";
+
+import { DataGrid } from "@mui/x-data-grid";
 
 const Members = () => {
   const toolbarOptions = ["Search"];
   const editing = { allowDeleting: true, allowEditing: true };
   const [data, setData] = useState([]);
+  const [toggleAccount, setToggleAccount] = useState(false);
 
-  // const q = query(collection(db, "users"), where("Country", "==", "US"));
   const q = query(collection(db, "users"));
   useEffect(() => {
     const getEmployee = async () => {
@@ -37,8 +39,6 @@ const Members = () => {
       try {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-          // console.log(doc.id, " => ", doc.data());
-          console.log(doc.id);
           list.push({ ...doc.data() });
         });
         setData(list);
@@ -49,27 +49,48 @@ const Members = () => {
     getEmployee();
   }, []);
 
+  const createAccount = () => {
+    setToggleAccount(!toggleAccount);
+  };
+  
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "users", id));
+      setData(data.filter((item) => item.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Employees" />
-      <GridComponent
-        dataSource={data}
-        width="auto"
-        allowPaging
-        allowSorting
-        pageSettings={{ pageCount: 5 }}
-        editSettings={editing}
-        toolbar={toolbarOptions}
-      >
-        <ColumnsDirective>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {userColumns.map((item, index) => (
-            <ColumnDirective key={index} {...item} />
-          ))}
-        </ColumnsDirective>
-        <Inject services={[Search, Page]} />
-      </GridComponent>
-    </div>
+    <>
+      {!toggleAccount ? (
+        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+          <button onClick={() => createAccount()}>account create</button>
+          <GridComponent
+            dataSource={data}
+            width="auto"
+            allowPaging
+            allowSorting
+            pageSettings={{ pageCount: 5 }}
+            editSettings={editing}
+            toolbar={toolbarOptions}
+          >
+            <ColumnsDirective>
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              {userColumns.map((item, index) => (
+                <ColumnDirective key={index} {...item} />
+              ))}
+            </ColumnsDirective>
+            <Inject services={[Search, Page]} />
+          </GridComponent>
+        </div>
+      ) : (
+        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+          <button onClick={() => createAccount()}>back to list</button>
+        </div>
+      )}
+    </>
   );
 };
 

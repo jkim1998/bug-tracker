@@ -20,18 +20,28 @@ import "./test.css";
 
 const Login = () => {
   const [data, setData] = useState({});
-  const [err, setError] = useState();
+  const [err, setError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const { SignIn, googleSignIn, facebookSignIn, githubSignIn, user } =
     useAuth();
 
-  const signInWithID = async () => {
-    try {
-      await SignIn();
-    } catch (error) {
-      console.log(error);
-    }
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigate("/main");
+      })
+      .catch((error) => {
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+        }, 3000);
+      });
   };
 
   const signInWithGoogle = async () => {
@@ -56,27 +66,28 @@ const Login = () => {
       console.log(error);
     }
   };
+
   // useEffect(() => {
   //   if (user != null) {
-  //     navigate("/");
+  //     navigate("/main");
   //   } else {
-  //     navigate("login")
+  //     navigate("/login")
   //   }
   // }, [user]);
 
   return (
     <div className="test1">
       <div className="test2">
-        <form id="login" className="test22">
+        <form id="login" className="test22" onSubmit={handleLogin}>
           <input
             type="text"
             placeholder="Email"
-            value={data.email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="text"
             placeholder="password"
-            value={data.password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button className="test3">sign in</button>
         </form>
@@ -91,6 +102,7 @@ const Login = () => {
         </button>
         {/* <button onClick={handelSignOut}>sign out</button> */}
         <a href="/signup">Sign up</a>
+        {err && <p className="err_msg">Wrong Email or password</p>}
       </div>
     </div>
   );

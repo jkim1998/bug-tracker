@@ -11,6 +11,10 @@ import {
   getAuth,
   onAuthStateChanged,
   GithubAuthProvider,
+  updateEmail,
+  updatePassword,
+  updatePhoneNumber,
+  updateCurrentUser,
 } from "firebase/auth";
 import {
   addDoc,
@@ -49,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
       .then((userCredential) => {
         // addAccount;
         const user = userCredential.user;
-        // ...
+        navigate("/main");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -64,7 +68,7 @@ export const AuthContextProvider = ({ children }) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        navigate("/ecommerce");
+        navigate("/main");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -81,7 +85,7 @@ export const AuthContextProvider = ({ children }) => {
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
         const user = result.user;
-        navigate("/ecommerce");
+        navigate("/main");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -98,7 +102,7 @@ export const AuthContextProvider = ({ children }) => {
         const credential = GithubAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
         const user = result.user;
-        navigate("/ecommerce");
+        navigate("/main");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -112,6 +116,24 @@ export const AuthContextProvider = ({ children }) => {
     signOut(auth);
     console.log(user, "logged out");
     navigate("/login");
+  };
+
+  const profileUpdate = (e) => {
+    e.preventDefault();
+    updateProfile(auth.currentUser, {
+      displayName: data.displayName,
+      title: data.title,
+      email: data.email,
+      password: data.password,
+    })
+      .then(() => {
+        // Profile updated!
+        console.log("profile updated");
+      })
+      .catch((error) => {
+        // An error occurred
+        console.log("profile update error");
+      });
   };
 
   useEffect(() => {
@@ -133,6 +155,7 @@ export const AuthContextProvider = ({ children }) => {
         githubSignIn,
         user,
         logout,
+        profileUpdate,
       }}
     >
       {children}

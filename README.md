@@ -3,7 +3,6 @@
     - admin privileges
     - charts to reflect projet progress
 
-
 ## login/sign up
     - facebook log in not working 
     - add to users collection for google/github log in 
@@ -29,29 +28,32 @@
     -click ticket to view details 
         --style
     -assign to drop menu that contains members list 
+    -drag drop to change status 
+    -pie chart to reflect data
 
 ## projects 
     - import from github? (commit history, etc)
     - firebase 
-        -project title 
         -thumbnail
         -description
-        -github link
-        -demo link
     - click to view details 
         -details above 
         -authors 
         -tickets related to the project
     - ability to join on project, needs approval by the owner of project
+    - admin can add/remove/edit projects details 
+        - can assign members 
+    - members, tags accept array, auto complete 
+        - tags don't have to be in collections 
 
 ## calendar 
     - save events to server (it disappears on refresh rn)
-    -
 
+## profile
+    -update user info to firebase 
 
 ## later if have time 
     - chat between users 
-    -
 
 
 ### urgent/crtical bug

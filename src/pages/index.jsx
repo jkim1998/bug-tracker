@@ -6,3 +6,4 @@ export { default as Pie } from "./Charts/Pie";
 export { default as Login } from "./Login";
 export { default as Signup } from "./SignUp";
 export { default as Tickets } from "./Tickets";
+export { default as Profile } from "./Profile";

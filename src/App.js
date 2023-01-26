@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-
+import { useNavigate } from "react-router-dom";
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
 import {
   Main,
@@ -13,11 +13,13 @@ import {
   Login,
   Signup,
   Tickets,
+  Profile,
 } from "./pages";
 import "./App.css";
 import { AuthContextProvider, useAuth } from "./contexts/AuthContext";
 import { useStateContext } from "./contexts/ContextProvider";
 import PrivateRoute from "./contexts/PrivateRoute";
+import { auth } from "./firebase";
 
 const App = () => {
   // const [activeMenu, setActivemenu] = useState(false);
@@ -102,6 +104,7 @@ const App = () => {
                     // </PrivateRoute>
                   }
                 />
+                <Route path="profile" element={<Profile />} />
                 <Route path="/main" element={<Main />} />
                 {/* pages  */}
                 <Route

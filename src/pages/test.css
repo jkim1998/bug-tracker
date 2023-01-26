@@ -1,3 +1,21 @@
+@keyframes wiggle {
+  0% {
+    transform: translate(0);
+  }
+  80% {
+    transform: translate(0);
+  }
+  85% {
+    transform: translate(10px, 0);
+  }
+  95% {
+    transform: translate(-10px, 0);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
 .all {
   background-color: blueviolet;
   display: flex;
@@ -39,7 +57,7 @@ select {
   width: 500px;
 }
 
-#summary {
+#Summary {
   height: 300px;
 }
 
@@ -77,17 +95,19 @@ select {
   gap: 10px;
 }
 
-.project:hover {
-  cursor: pointer;
-  transform: scale(110%);
-  transition-duration: 0.5s;
-}
-
 .project_img {
   display: flex;
   background-color: green;
   width: 150px;
   height: 150px;
+}
+
+#project_add {
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .popup {
@@ -111,7 +131,7 @@ select {
   width: 100%;
 }
 
-.addProject {
+#ticket_add {
   background-color: rgb(190, 219, 219);
   padding: 50px;
   display: flex;
@@ -121,6 +141,13 @@ select {
   width: fit-content;
   height: fit-content;
   pointer-events: all;
+}
+
+.err_msg {
+  color: red;
+  display: inline-block;
+  animation: wiggle 1s;
+  animation-iteration-count: 1;
 }
 
 button[type="submit"] {
@@ -158,9 +185,19 @@ button[type="submit"] {
 }
 
 .container_kanban {
-  margin: 100px 50px;
-  height: 30%;
+  padding: 100px 50px;
+  margin: 0 50px;
+  max-height: 60%;
   background-color: rgb(232, 243, 243);
+}
+
+#kanban {
+  height: 100% !important;
+  overflow: scroll !important;
+}
+
+#kanban .e-kanban-content div .e-kanban-table * * {
+  overflow-y: scroll !important;
 }
 
 .addticket {
@@ -182,8 +219,8 @@ button[type="submit"] {
 }
 
 .container_pie {
-  /* width: 33%; */
-  width: fit-content;
+  /* width: fit-content; */
+  width: 33%;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -199,4 +236,57 @@ button[type="submit"] {
 
 .e-kanban {
   background: transparent !important;
+}
+
+/************************************************/
+
+.profile {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 200px;
+  margin-top: 50px;
+  padding: 50px;
+  border: 2px solid grey;
+  border-radius: 10px;
+}
+
+.top,
+.mid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 100px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 20px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.section h1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 20%;
+}
+
+.sectoin p {
+  padding-left: 20px;
+}
+
+.password {
+  min-width: 150px;
 }

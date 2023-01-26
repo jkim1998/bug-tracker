@@ -26,14 +26,14 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { ordersData, contextMenuItems, ordersGrid } from "../data/dummy";
-import { projectData, dataColumn } from "../data/importData";
+import { projectData, projectColumn } from "../data/importData";
 import { Header } from "../components";
 
 const Projects = () => {
   const toolbarOptions = ["Search"];
   const editing = { allowDeleting: true, allowEditing: true };
   const [data, setData] = useState([]);
-  const [popUp, setPopup] = useState(false);
+  const [addproject, setAddProject] = useState(false);
   const [err, setError] = useState();
   const [per, setPerc] = useState(null);
 
@@ -44,9 +44,10 @@ const Projects = () => {
     });
   };
 
-  const togglePopUp = () => {
-    setPopup(!popUp);
+  const toggleAddProject = () => {
+    setAddProject(!addproject);
   };
+
   const addProject = async (e) => {
     e.preventDefault();
     try {
@@ -54,9 +55,12 @@ const Projects = () => {
         title: data.title,
         member: data.member,
         status: data.status,
+        github: data.github,
+        preview: data.preview,
       });
-      console.log("ticketID: " + data.title);
+      console.log("project: " + data.title);
       document.getElementById("project_add").reset();
+      toggleAddProject();
     } catch (err) {
       console.log("err");
     }
@@ -79,75 +83,101 @@ const Projects = () => {
       }
     };
     getProject();
-  }, []);
+  }, [data]);
 
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Orders" />
-      <GridComponent
-        id="gridcomp"
-        dataSource={data}
-        allowPaging
-        allowSorting
-        allowExcelExport
-        allowPdfExport
-        contextMenuItems={dataColumn}
-        editSettings={editing}
-      >
-        <ColumnsDirective>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {dataColumn.map((item, index) => (
-            <ColumnDirective key={index} {...item} />
-          ))}
-        </ColumnsDirective>
-        <Inject
-          services={[
-            Resize,
-            Sort,
-            ContextMenu,
-            Filter,
-            Page,
-            ExcelExport,
-            Edit,
-            PdfExport,
-          ]}
-        />
-      </GridComponent>
-      <button onClick={() => togglePopUp()}>Add Project</button>
-
-      {popUp && (
-        <div className="popup">
+    <>
+      {addproject ? (
+        <div className="project">
           <div className="button_container">
-            <button className="close" onClick={() => togglePopUp()}>
-              X
+            <button className="close" onClick={() => toggleAddProject()}>
+              close
             </button>
           </div>
-          <form className="addProject" onSubmit={addProject} id="project_add">
+          <form onSubmit={addProject} id="project_add">
             <input
               id="title"
               value={data.title}
               placeholder="title"
               onChange={handleInput}
+              required={true}
             />
             <input
               id="member"
               value={data.member}
               placeholder="member"
               onChange={handleInput}
+              required={false}
             />
             <input
               id="status"
               value={data.status}
               placeholder="status"
               onChange={handleInput}
+              required={true}
+            />
+            <input
+              id="tag"
+              value={data.tag}
+              placeholder="tag"
+              onChange={handleInput}
+              required={false}
+            />
+            <input
+              id="github"
+              value={data.github}
+              placeholder="github link"
+              onChange={handleInput}
+              required={false}
+            />
+            <input
+              id="preview"
+              value={data.preview}
+              placeholder="preview link"
+              onChange={handleInput}
+              required={false}
             />
             <button disabled={per !== null && per < 100} type="submit">
               Send
             </button>
           </form>
         </div>
+      ) : (
+        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+          <Header category="Page" title="Orders" />
+          <GridComponent
+            id="gridcomp"
+            dataSource={data}
+            allowPaging
+            allowSorting
+            allowExcelExport
+            allowPdfExport
+            contextMenuItems={projectColumn}
+            editSettings={editing}
+          >
+            <ColumnsDirective>
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              {projectColumn.map((item, index) => (
+                <ColumnDirective key={index} {...item} />
+              ))}
+            </ColumnsDirective>
+            <Inject
+              services={[
+                Resize,
+                Sort,
+                ContextMenu,
+                Filter,
+                Page,
+                ExcelExport,
+                Edit,
+                PdfExport,
+              ]}
+            />
+          </GridComponent>
+          <button onClick={() => toggleAddProject()}>Add Project</button>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
