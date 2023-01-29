@@ -16,6 +16,16 @@
   }
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  height: calc(100vh - 60px);
+}
+
 .all {
   background-color: blueviolet;
   display: flex;
@@ -159,19 +169,63 @@ button[type="submit"] {
 }
 
 .main {
-  background-color: red;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: auto auto;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
 }
 
-.grid {
+.welcome {
+  /* background-color: yellow; */
   display: flex;
-  background-color: blue;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.total_tickets {
+  /* background-color: rgb(83, 27, 136); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 150px;
+  margin: 100px;
+  margin-right: 10px;
+}
+
+.criticalbug {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  min-height: 150px;
+  height: fit-content;
   margin: 50px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.task_completion {
+  /* background-color: blue; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: fit-content;
+  margin: 50px;
+}
+
+.graph {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  min-height: 150px;
   padding: 50px;
-  min-height: 500px;
+  border-radius: 15px;
+  margin: 50px;
 }
 
 .tickets {
@@ -245,25 +299,26 @@ button[type="submit"] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 100px;
-  margin-top: 20px;
   padding: 20px;
   border: 2px solid grey;
   border-radius: 10px;
 }
 
-.top,
-.mid {
+.top {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 100px;
+  height: 100%;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 h2 {
   font-size: 30px;
+}
+
+h3 {
+  font-size: 60px;
 }
 
 .section {

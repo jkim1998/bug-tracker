@@ -26,7 +26,7 @@ import { useAuth } from "../contexts/AuthContext";
 import SignUp from "./SignUp";
 
 import "../index.css";
-import "./test.css";
+import "./styles.css";
 
 const Login = () => {
   const [data, setData] = useState({});

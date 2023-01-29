@@ -12,7 +12,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-import "./test.css";
+import "./styles.css";
 
 const SignUp = () => {
   const { user } = useAuth();

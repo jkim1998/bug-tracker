@@ -1,10 +1,10 @@
 ## general 
-    - priviate routing 
     - admin privileges
-    - charts to reflect projet progress
+    - charts to reflect project progress
 
 ## login/sign up
     - facebook log in not working 
+    - test mode
     - add to users collection for google/github log in 
     - css 
 
@@ -17,11 +17,10 @@
     -include accounts using google/github log in 
     - delete/ edit function for admin 
     - add profile pictures
-    - phone numbers
     - hiredate as account creation date
     - employee number 
         - same as ticket #
-    - click email address to send email
+    - click email address to send email (pop up)
 
 ## ticket 
     -set ID unedditable, read from firebase. 
@@ -49,15 +48,8 @@
 ## calendar 
     - save events to server (it disappears on refresh rn)
 
-## profile
-    -update user info to firebase 
-
-## later if have time 
-    - chat between users 
-
 
 ### urgent/crtical bug
-- private route not working after logged in 
 - ticket 
     - ticket number needs to be initialized (0)
     - either non input to hold ticket id + 1 value and display

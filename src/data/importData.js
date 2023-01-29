@@ -68,12 +68,6 @@ export const links = [
         name: "Main",
         icon: <FiShoppingBag />,
       },
-    ],
-  },
-
-  {
-    title: "Pages",
-    links: [
       {
         name: "projects",
         icon: <AiOutlineShoppingCart />,
@@ -86,11 +80,6 @@ export const links = [
         name: "tickets",
         icon: <IoMdContacts />,
       },
-    ],
-  },
-  {
-    title: "Apps",
-    links: [
       {
         name: "calendar",
         icon: <AiOutlineCalendar />,

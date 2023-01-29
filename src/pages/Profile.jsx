@@ -21,10 +21,6 @@ const Profile = () => {
   const { user } = useAuth();
   const [error, setError] = useState(false);
   const [values, setValues] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const togglePasswordHide = () => {
-    setValues(!values);
-  };
 
   const handleInput = (e) => {
     const { id, value } = e.target;
@@ -32,25 +28,6 @@ const Profile = () => {
       return { ...data, [id]: value };
     });
   };
-
-  // const newProfile = async () => {
-  //   updateProfile(auth.currentUser, {
-  //     displayName: "Jane Q. User",
-  //     name: "new name",
-  //     // photoURL: "https://example.com/jane-q-user/profile.jpg",
-  //   })
-  //     .then(() => {
-  //       // Profile updated!
-  //       // ...
-  //       console.log("currentuser: " + auth.currentUser);
-  //     })
-  //     .catch((error) => {
-  //       // An error occurred
-  //       // ...
-  //     });
-  // };
-  // console.log("user:" + user.uid);
-  // console.log(user.email)
 
   const newProfile = async (e) => {
     e.preventDefault();
@@ -70,8 +47,8 @@ const Profile = () => {
 
   return (
     <>
-      <form id="profile">
-        <div className="top">
+      <div className="top">
+        <form id="profile">
           <h2>Basic Info</h2>
           <p>
             Some info may be visible to other people using Bug Tracker services.
@@ -86,85 +63,18 @@ const Profile = () => {
           </div>
           <div className="section">
             <h1>Name</h1>
-            {/* <input
-              placeholder={user ? user.displayName : <p>Name</p>}
-              className="w-full"
-              value={data.displayName}
-              onChange={handleInput}
-            /> */}
             <p>{user.displayName}</p>
           </div>
           <div className="section">
             <h1>Title</h1>
-            {/* <input
-              placeholder={user.title ? user.title : <p>Title</p>}
-              className="w-full"
-              value={data.title}
-              onChange={handleInput}
-            /> */}
             <p>{user.title}</p>
           </div>
-        </div>
-        <div className="mid">
-          <h2>Account Info</h2>
           <div className="section">
             <h1>Email</h1>
-            {/* <input
-              placeholder={user ? user.email : <p>Email</p>}
-              className="w-full"
-              value={data.email}
-              onChange={handleInput}
-            /> */}
             <p>{user.email}</p>
           </div>
-
-          <div className="section">
-            <h1>Password</h1>
-            {values ? (
-              <>
-                <button onClick={() => togglePasswordHide()} className="mr-1">
-                  <AiFillEye />
-                </button>
-                <p className="password">##########</p>
-              </>
-            ) : (
-              <>
-                <button onClick={() => togglePasswordHide()} className="mr-1">
-                  <AiFillEyeInvisible />
-                </button>
-                <p className="password">{user.password}</p>
-              </>
-            )}
-          </div>
-
-          <div className="section">
-            <h1>Phone Number</h1>
-            {/* <input
-              placeholder={
-                user.phonenumber === null ? (
-                  user.phoneumber
-                ) : (
-                  <p>Phone Number</p>
-                )
-              }
-              className="w-full"
-              value={data.phonenumber}
-              onChange={handleInput}
-            /> */}
-          </div>
-
-          <div className="section">
-            <h1>Address</h1>
-            {/* <input
-              placeholder={user.address ? user.address : <p>Address</p>}
-              className="w-full"
-              value={data.address}
-              onChange={handleInput}
-            /> */}
-          </div>
-        </div>
-        <button onClick={() => newProfile()}>Save</button>
-      </form>
+        </form>
+      </div>
     </>
   );
 };
