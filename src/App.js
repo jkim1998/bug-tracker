@@ -101,36 +101,43 @@ const App = () => {
                 <Route
                   path="/"
                   element={
-                    // <PrivateRoute>
-                    <Main />
-                    // </PrivateRoute>
+                    <PrivateRoute>
+                      <Main />
+                    </PrivateRoute>
                   }
                 />
                 <Route path="profile" element={<Profile />} />
-                <Route path="/main" element={<Main />} />
+                <Route
+                  path="/main"
+                  element={
+                    <PrivateRoute>
+                      <Main />
+                    </PrivateRoute>
+                  }
+                />
                 {/* pages  */}
                 <Route
                   path="/projects"
                   element={
-                    // <PrivateRoute>
-                    <Projects />
-                    // </PrivateRoute>
+                    <PrivateRoute>
+                      <Projects />
+                    </PrivateRoute>
                   }
                 />
                 <Route
                   path="/members"
                   element={
-                    // <PrivateRoute>
-                    <Members />
-                    // </PrivateRoute>
+                    <PrivateRoute>
+                      <Members />
+                    </PrivateRoute>
                   }
                 />
                 <Route
                   path="/tickets"
                   element={
-                    // <PrivateRoute>
-                    <Tickets />
-                    // </PrivateRoute>
+                    <PrivateRoute>
+                      <Tickets />
+                    </PrivateRoute>
                   }
                 />
 
@@ -139,17 +146,17 @@ const App = () => {
                 <Route
                   path="/calendar"
                   element={
-                    // <PrivateRoute>
-                    <Calendar />
-                    // </PrivateRoute>
+                    <PrivateRoute>
+                      <Calendar />
+                    </PrivateRoute>
                   }
                 />
                 <Route
                   path="/pie"
                   element={
-                    // <PrivateRoute>
-                    <Pie />
-                    // </PrivateRoute>
+                    <PrivateRoute>
+                      <Pie />
+                    </PrivateRoute>
                   }
                 />
               </Routes>

@@ -86,36 +86,39 @@ const Profile = () => {
           </div>
           <div className="section">
             <h1>Name</h1>
-            <input
+            {/* <input
               placeholder={user ? user.displayName : <p>Name</p>}
               className="w-full"
               value={data.displayName}
               onChange={handleInput}
-            />
+            /> */}
+            <p>{user.displayName}</p>
           </div>
-          {/* <div className="section">
+          <div className="section">
             <h1>Title</h1>
-            <input
+            {/* <input
               placeholder={user.title ? user.title : <p>Title</p>}
               className="w-full"
               value={data.title}
               onChange={handleInput}
-            />
-          </div> */}
+            /> */}
+            <p>{user.title}</p>
+          </div>
         </div>
         <div className="mid">
           <h2>Account Info</h2>
           <div className="section">
             <h1>Email</h1>
-            <input
+            {/* <input
               placeholder={user ? user.email : <p>Email</p>}
               className="w-full"
               value={data.email}
               onChange={handleInput}
-            />
+            /> */}
+            <p>{user.email}</p>
           </div>
 
-          {/* <div className="section">
+          <div className="section">
             <h1>Password</h1>
             {values ? (
               <>
@@ -129,14 +132,14 @@ const Profile = () => {
                 <button onClick={() => togglePasswordHide()} className="mr-1">
                   <AiFillEyeInvisible />
                 </button>
-                <p className="password">{data.password}</p>
+                <p className="password">{user.password}</p>
               </>
             )}
-          </div> */}
+          </div>
 
-          {/* <div className="section">
+          <div className="section">
             <h1>Phone Number</h1>
-            <input
+            {/* <input
               placeholder={
                 user.phonenumber === null ? (
                   user.phoneumber
@@ -147,18 +150,18 @@ const Profile = () => {
               className="w-full"
               value={data.phonenumber}
               onChange={handleInput}
-            />
-          </div> */}
+            /> */}
+          </div>
 
-          {/* <div className="section">
+          <div className="section">
             <h1>Address</h1>
-            <input
+            {/* <input
               placeholder={user.address ? user.address : <p>Address</p>}
               className="w-full"
               value={data.address}
               onChange={handleInput}
-            />
-          </div> */}
+            /> */}
+          </div>
         </div>
         <button onClick={() => newProfile()}>Save</button>
       </form>

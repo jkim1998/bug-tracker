@@ -11,11 +11,13 @@ import user_default from "../data/user_default.png";
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
+  const { setActivemenu } = useStateContext();
   const { logout, user } = useAuth();
 
   const handleSignOut = async () => {
     try {
       await logout();
+      setActivemenu(false);
     } catch (error) {
       console.log(error);
     }
