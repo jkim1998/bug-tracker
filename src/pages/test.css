@@ -240,15 +240,14 @@ button[type="submit"] {
 
 /************************************************/
 
-.profile {
-  /* background-color: red; */
+#profile {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 200px;
-  margin-top: 50px;
-  padding: 50px;
+  margin: 100px;
+  margin-top: 20px;
+  padding: 20px;
   border: 2px solid grey;
   border-radius: 10px;
 }
@@ -272,7 +271,7 @@ h2 {
   flex-direction: row;
   width: 100%;
   margin: 20px 0;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 1px solid rgb(0, 0, 0);
 }
 

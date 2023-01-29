@@ -1,39 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import {
-  GridComponent,
-  Inject,
-  ColumnsDirective,
-  ColumnDirective,
-  Search,
-  Page,
-} from "@syncfusion/ej2-react-grids";
 import {
   addDoc,
   collection,
   doc,
   serverTimestamp,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { auth, db, storage } from "../firebase";
+import { updateProfile } from "firebase/auth";
 import { useAuth } from "../contexts/AuthContext";
-import { employeesGrid } from "../data/dummy";
-import { Header, AddEmployee } from "../components";
 import { Popup } from "@syncfusion/ej2-react-popups";
-import { userColumns } from "../data/importData";
 import user_default from "../data/user_default.png";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "./SignUp";
 
 const Profile = () => {
   const toolbarOptions = ["Search"];
-  const editing = { allowDeleting: true, allowEditing: true };
   const [data, setData] = useState([]);
   const { user } = useAuth();
   const [error, setError] = useState(false);
   const [values, setValues] = useState(false);
   const [edit, setEdit] = useState(false);
-
   const togglePasswordHide = () => {
     setValues(!values);
   };
@@ -45,9 +33,44 @@ const Profile = () => {
     });
   };
 
+  // const newProfile = async () => {
+  //   updateProfile(auth.currentUser, {
+  //     displayName: "Jane Q. User",
+  //     name: "new name",
+  //     // photoURL: "https://example.com/jane-q-user/profile.jpg",
+  //   })
+  //     .then(() => {
+  //       // Profile updated!
+  //       // ...
+  //       console.log("currentuser: " + auth.currentUser);
+  //     })
+  //     .catch((error) => {
+  //       // An error occurred
+  //       // ...
+  //     });
+  // };
+  // console.log("user:" + user.uid);
+  // console.log(user.email)
+
+  const newProfile = async (e) => {
+    e.preventDefault();
+    const queryProfile = doc(db, "users", user.uid);
+    try {
+      await updateDoc(queryProfile, {
+        name: data.name,
+        email: data.email,
+        // phonenumber: data.phonenumber,
+        // address: data.address,
+      });
+      console.log(user.displayName + " updated");
+    } catch (err) {
+      console.log("update error");
+    }
+  };
+
   return (
     <>
-      <form className="profile" id="profile">
+      <form id="profile">
         <div className="top">
           <h2>Basic Info</h2>
           <p>
@@ -70,7 +93,7 @@ const Profile = () => {
               onChange={handleInput}
             />
           </div>
-          <div className="section">
+          {/* <div className="section">
             <h1>Title</h1>
             <input
               placeholder={user.title ? user.title : <p>Title</p>}
@@ -78,7 +101,7 @@ const Profile = () => {
               value={data.title}
               onChange={handleInput}
             />
-          </div>
+          </div> */}
         </div>
         <div className="mid">
           <h2>Account Info</h2>
@@ -92,7 +115,7 @@ const Profile = () => {
             />
           </div>
 
-          <div className="section">
+          {/* <div className="section">
             <h1>Password</h1>
             {values ? (
               <>
@@ -107,12 +130,11 @@ const Profile = () => {
                   <AiFillEyeInvisible />
                 </button>
                 <p className="password">{data.password}</p>
-                {/* <input /> */}
               </>
             )}
-          </div>
+          </div> */}
 
-          <div className="section">
+          {/* <div className="section">
             <h1>Phone Number</h1>
             <input
               placeholder={
@@ -126,9 +148,9 @@ const Profile = () => {
               value={data.phonenumber}
               onChange={handleInput}
             />
-          </div>
+          </div> */}
 
-          <div className="section">
+          {/* <div className="section">
             <h1>Address</h1>
             <input
               placeholder={user.address ? user.address : <p>Address</p>}
@@ -136,9 +158,9 @@ const Profile = () => {
               value={data.address}
               onChange={handleInput}
             />
-          </div>
+          </div> */}
         </div>
-        {/* <button onClick={() => updateProfile()}>Save</button> */}
+        <button onClick={() => newProfile()}>Save</button>
       </form>
     </>
   );

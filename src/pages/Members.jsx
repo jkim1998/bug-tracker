@@ -47,7 +47,7 @@ const Members = () => {
       }
     };
     getEmployee();
-  }, []);
+  }, [data]);
 
   const createAccount = () => {
     setToggleAccount(!toggleAccount);

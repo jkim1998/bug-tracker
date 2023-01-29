@@ -14,6 +14,7 @@ import {
   Signup,
   Tickets,
   Profile,
+  Test,
 } from "./pages";
 import "./App.css";
 import { AuthContextProvider, useAuth } from "./contexts/AuthContext";
@@ -94,6 +95,7 @@ const App = () => {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/test" element={<Test />} />
 
                 {/* dashboard  */}
                 <Route

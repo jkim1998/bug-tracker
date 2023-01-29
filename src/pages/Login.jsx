@@ -11,7 +11,17 @@ import {
   getAuth,
   onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+  getDoc,
+  where,
+  query,
+} from "firebase/firestore";
+import { auth, db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 import SignUp from "./SignUp";
 
@@ -51,6 +61,29 @@ const Login = () => {
       console.log(error);
     }
   };
+
+  // const signInWithGoogle = async () => {
+  //   const provider = new GoogleAuthProvider();
+  //   const signInWithGoogle = async () => {
+  //     try {
+  //       const res = await signInWithPopup(auth, provider);
+  //       const user = res.user;
+  //       const q = query(collection(db, "users"), where("uid", "==", user.uid));
+  //       const docs = await getDoc(q);
+  //       if (docs.docs.length === 0) {
+  //         await addDoc(collection(db, "users"), {
+  //           uid: user.uid,
+  //           name: user.displayName,
+  //           authProvider: "google",
+  //           email: user.email,
+  //         });
+  //       }
+  //     } catch (err) {
+  //       console.error(err);
+  //       alert(err.message);
+  //     }
+  //   };
+  // };
 
   const signInWithFacebook = async () => {
     try {

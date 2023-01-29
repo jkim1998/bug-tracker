@@ -22,6 +22,9 @@ import {
   doc,
   serverTimestamp,
   setDoc,
+  getDoc,
+  where,
+  query,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
@@ -33,25 +36,23 @@ export const AuthContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [err, setError] = useState();
-  //   const addAccount = async () => {
-  //   try {
-  //     await setDoc(doc(db, "users", res.user.uid), {
-  //       ...data,
-  //       timeStamp: serverTimestamp(),
-  //     });
-  //     setData("");
-  //     document.getElementById("account_creation").reset();
-  //     // navigate(-1);
-  //     setError("");
-  //   } catch (err) {
-  //     console.log(err);
-  //     setError("error");
-  //   }
-  // };
+  const [userID, setUID] = useState();
+
+  const addAccount = async (userID) => {
+    try {
+      await setDoc(doc(db, "users", userID), {
+        ...data,
+      });
+      console.log("pog");
+    } catch (err) {
+      console.log(err);
+      setError(true);
+    }
+  };
+
   const SignIn = ({ email, password }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // addAccount;
         const user = userCredential.user;
         navigate("/main");
       })
@@ -63,17 +64,43 @@ export const AuthContextProvider = ({ children }) => {
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
+    // const signInWithGoogle = async () => {
+    //   try {
+    //     const res = await signInWithPopup(auth, provider);
+    //     const user = res.user;
+    //     const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    //     const docs = await getDoc(q);
+    //     if (docs.docs.length === 0) {
+    //       await addDoc(collection(db, "users"), {
+    //         uid: user.uid,
+    //         name: user.displayName,
+    //         authProvider: "google",
+    //         email: user.email,
+    //       });
+    //     }
+    //   } catch (err) {
+    //     console.error(err);
+    //     alert(err.message);
+    //   }
+    // };
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
         navigate("/main");
+        console.log("qq:" + user.uid);
+        console.log("name: " + user.displayName);
+        console.log("email: " + user.email);
+        console.log("password: " + user.password);
+        setUID(user.uid);
+        console.log("uid: " + userID);
+        // addAccount(userID);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData.email;
+        // const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
   };
