@@ -46,7 +46,7 @@ const Sidebar = () => {
                 <MdOutlineCancel />
               </button>
               <button
-                classname=" hover:opacity-80"
+                className=" hover:opacity-80"
                 onClick={() => setActiveMenu(false)}
                 color={currentColor}
               >
@@ -62,7 +62,7 @@ const Sidebar = () => {
                 </p>
                 {item.links.map((link) => (
                   <NavLink
-                    to={`/${link.name}`}
+                    to={`/${link.route}`}
                     key={link.name}
                     onClick={handleCloseSideBar}
                     style={({ isActive }) => ({

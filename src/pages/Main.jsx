@@ -24,6 +24,7 @@ import {
   setDoc,
   serverTimestamp,
   addDoc,
+  getCountFromServer,
 } from "firebase/firestore";
 import { ordersData, contextMenuItems, ordersGrid } from "../data/dummy";
 import { projectData, projectColumn } from "../data/importData";
@@ -42,10 +43,55 @@ import { IoMdNotifications } from "react-icons/io";
 import "./styles.css";
 
 const Main = () => {
+  let date = new Date();
+  var today = new Date();
+  var yesterday = new Date(date.setDate(today.getDate() - 100));
+  const { user } = useAuth();
   const toolbarOptions = ["Search"];
   const editing = { allowDeleting: true, allowEditing: true };
   const [data, setData] = useState([]);
-  const { user } = useAuth();
+  const [err, setError] = useState();
+  const [NumProject, setNumProject] = useState(0);
+  const [NumTicket, setNumTicket] = useState(0);
+  const [NumUser, setNumUser] = useState(0);
+  const [unassigned, setUnassigned] = useState(0);
+  const [newUser, setNewUser] = useState(0);
+
+  const colProject = collection(db, "Projects");
+  const colTicket = collection(db, "tickets");
+  const colUser = collection(db, "users");
+  const colUnassigned = collection(db, "tickets");
+  const colNewUser = collection(db, "users");
+
+  const qProject = query(colProject);
+  const qTicket = query(colTicket);
+  const qUser = query(colUser);
+  const qUnassigned = query(colUnassigned, where("Status", "==", "Open"));
+  const qNewUser = query(colUnassigned, where("timeStamp", "=>", yesterday));
+
+  useEffect(() => {
+    const getNum = async () => {
+      try {
+        const snapProject = await getCountFromServer(qProject);
+        const snapTicket = await getCountFromServer(qTicket);
+        const snapUser = await getCountFromServer(qUser);
+        const snapUnassigned = await getCountFromServer(qUnassigned);
+        const snapNewUser = await getCountFromServer(qNewUser);
+
+        setNumProject(snapProject.data().count);
+        setNumTicket(snapTicket.data().count - 1);
+        setNumUser(snapUser.data().count);
+        setUnassigned(snapUnassigned.data().count);
+        setNewUser(snapNewUser.data().count);
+
+        console.log("date: ", yesterday);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getNum();
+  }, []);
+
   return (
     <div className="flex flex-col h-full px-4">
       <div className="flex flex-row justify-center w-full pb-5">
@@ -54,19 +100,19 @@ const Main = () => {
       <div className="flex flex-row justify-between w-full py-4">
         <div className="flex flex-col justify-center items-center w-1/4 mr-4 py-12 px-12 rounded-2xl bg-blue-600 text-white font-bold">
           <h1>Active Projects</h1>
-          <h2>15</h2>
+          <h2>{NumProject}</h2>
         </div>
         <div className="flex flex-col justify-center items-center w-1/4 mx-4 py-12 px-12 rounded-2xl bg-yellow-400 text-white font-bold">
           <h1>Total Tickets</h1>
-          <h2>15</h2>
+          <h2>{NumTicket}</h2>
         </div>
         <div className="flex flex-col justify-center items-center w-1/4 mx-4 py-12 px-12 rounded-2xl bg-green-600 text-white font-bold">
           <h1>Unassigned Tickets</h1>
-          <h2>15</h2>
+          <h2>{unassigned}</h2>
         </div>
         <div className="flex flex-col justify-center items-center w-1/4 ml-4 py-12 px-12 rounded-2xl bg-red-600 text-white font-bold">
           <h1>Analytics</h1>
-          <h2>15</h2>
+          <h2>99</h2>
         </div>
       </div>
 
@@ -77,8 +123,8 @@ const Main = () => {
               <FaUserAlt />
             </div>
             <div className="flex flex-col">
-              <p>new users</p>
-              <p>10</p>
+              <p>New Users</p>
+              <p>{newUser}</p>
             </div>
           </div>
           <div className="flex flex-row items-center w-full h-1/4 mb-1 border-b-2 border-slate-300">
@@ -86,8 +132,8 @@ const Main = () => {
               <FaUsers />
             </div>
             <div className="flex flex-col">
-              <p>new users</p>
-              <p>10</p>
+              <p>Total Users</p>
+              <p>99</p>
             </div>
           </div>
           <div className="flex flex-row items-center w-full h-1/4 mb-1 border-b-2 border-slate-300">
@@ -95,8 +141,8 @@ const Main = () => {
               <AiFillBug />
             </div>
             <div className="flex flex-col">
-              <p>new users</p>
-              <p>10</p>
+              <p>Tickets in Development</p>
+              <p>99</p>
             </div>
           </div>
           <div className="flex flex-row items-center w-full h-1/4 mb-1">
@@ -104,8 +150,8 @@ const Main = () => {
               <GrUserWorker />
             </div>
             <div className="flex flex-col">
-              <p>new users</p>
-              <p>10</p>
+              <p>Total Developers</p>
+              <p>99</p>
             </div>
           </div>
         </div>
@@ -120,9 +166,9 @@ const Main = () => {
                 <FaUsers size={30} />
               </div>
               <div className="flex flex-row justify-between items-center w-4/5 h-full">
-                <p class="text-teal-400 font-semibold">Members</p>
+                <p className="text-teal-400 font-semibold">Members</p>
                 <p className="flex flex-row justify-center items-center w-10 p-1 rounded-md border-2 border-slate-300">
-                  27
+                  {NumUser}
                 </p>
               </div>
             </div>
@@ -131,9 +177,9 @@ const Main = () => {
                 <AiFillFolder size={30} />
               </div>
               <div className="flex flex-row justify-between items-center w-4/5 h-full">
-                <p class="text-teal-400 font-semibold">Projects</p>
+                <p className="text-teal-400 font-semibold">Projects</p>
                 <p className="flex flex-row justify-center items-center w-10 p-1 rounded-md border-2 border-slate-300">
-                  4
+                  {NumProject}
                 </p>
               </div>
             </div>
@@ -142,9 +188,9 @@ const Main = () => {
                 <GiTicket size={30} />
               </div>
               <div className="flex flex-row justify-between items-center w-4/5 h-full">
-                <p class="text-teal-400 font-semibold">Tickets</p>
+                <p className="text-teal-400 font-semibold">Tickets</p>
                 <p className="flex flex-row justify-center items-center w-10 p-1 rounded-md border-2 border-slate-300">
-                  100
+                  {NumTicket}
                 </p>
               </div>
             </div>
@@ -153,9 +199,9 @@ const Main = () => {
                 <IoMdNotifications size={30} />
               </div>
               <div className="flex flex-row justify-between items-center w-4/5 h-full">
-                <p class="text-teal-400 font-semibold">Notifications</p>
+                <p className="text-teal-400 font-semibold">Notifications</p>
                 <p className="flex flex-row justify-center items-center w-10 p-1 rounded-md border-2 border-slate-300">
-                  1
+                  99
                 </p>
               </div>
             </div>

@@ -42,6 +42,8 @@ const Projects = () => {
     setData((data) => {
       return { ...data, [id]: value };
     });
+
+    console.log("data:" + data.title);
   };
 
   const toggleAddProject = () => {
@@ -52,17 +54,15 @@ const Projects = () => {
     e.preventDefault();
     try {
       await setDoc(doc(db, "Projects", data.title), {
-        title: data.title,
-        member: data.member,
-        status: data.status,
-        github: data.github,
-        preview: data.preview,
+        data,
       });
       console.log("project: " + data.title);
       document.getElementById("project_add").reset();
+      // is there better option than refresh page to reload data
+      window.location.reload();
       toggleAddProject();
     } catch (err) {
-      console.log("err");
+      console.log(err);
     }
   };
 
@@ -83,7 +83,7 @@ const Projects = () => {
       }
     };
     getProject();
-  }, [data]);
+  }, []);
 
   return (
     <>
@@ -138,7 +138,7 @@ const Projects = () => {
               required={false}
             />
             <button disabled={per !== null && per < 100} type="submit">
-              Send
+              Add
             </button>
           </form>
         </div>

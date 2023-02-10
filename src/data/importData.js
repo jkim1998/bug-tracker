@@ -60,33 +60,35 @@ import {
 } from "react-icons/ai";
 import { MdPreview } from "react-icons/md";
 import { Email } from "../components/Email";
+
 export const links = [
   {
     title: "Dashboard",
     links: [
       {
         name: "Main",
+        route: "",
         icon: <FiShoppingBag />,
       },
       {
         name: "projects",
+        route: "projects",
         icon: <AiOutlineShoppingCart />,
       },
       {
         name: "members",
+        route: "members",
         icon: <IoMdContacts />,
       },
       {
         name: "tickets",
+        route: "tickets",
         icon: <IoMdContacts />,
       },
       {
         name: "calendar",
+        route: "calendar",
         icon: <AiOutlineCalendar />,
-      },
-      {
-        name: "pie",
-        icon: <FiPieChart />,
       },
     ],
   },
@@ -95,10 +97,12 @@ export const links = [
     links: [
       {
         name: "manage members",
+        route: "admin1",
         icon: <FiPieChart />,
       },
       {
         name: "Account Management",
+        route: "admin2",
         icon: <FiPieChart />,
       },
     ],

@@ -86,8 +86,9 @@ const Kanban = () => {
           list_ticket.push({ ...doc.data() });
         });
         setTicket(list_ticket[0]);
-        let test = parseInt(ticket.Id, 10) + 1;
-        setTicketID(test);
+        let newTicket = parseInt(ticket.Id, 10) + 1;
+        setTicketID(newTicket + 1);
+        // console.log("ticket+1: " + ticketID);
 
         const querySnapshot = await getDocs(ticketlist);
         querySnapshot.forEach((doc) => {
